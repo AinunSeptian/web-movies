@@ -10,7 +10,8 @@ $.ajax({
                         <div class="card-body">
                             <h5 class="card-title">${movie.Title}</h5>
                             <h6 class="card-subtittle mb-2 text-muted">${movie.Year}</h6>
-                            <a href="#" class="btn btn-primary">Show Details</a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#movieDetailModal">Show Details</a>
                         </div>
                      </div>
                 </div>`;
