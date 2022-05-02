@@ -1,36 +1,40 @@
-$.ajax({
-  url: "http://www.omdbapi.com/?apikey=dca61bcc&s=avengers",
-  success: (results) => {
-    const movies = results.Search;
-    let cards = "";
-    movies.forEach((movie) => {
-      cards += showCards(movie);
-    });
-    $(".movie-container").html(cards);
-
-    // ketika tombol detail modal di-klik
-    $(".modal-detail-button").on("click", function () {
-      $.ajax({
-        url:
-          "http://www.omdbapi.com/?apikey=dca61bcc&i=" + $(this).data("imdbid"),
-        success: (movie) => {
-          const movieDetail = showMovieDetail(movie);
-
-          $(".modal-body").html(movieDetail);
-        },
-        error: (errors) => {
-          const errorMessage = errors.responseText;
-          alert(errorMessage);
-          console.log(errorMessage);
-        },
+$(".search-button").on("click", function () {
+  $.ajax({
+    url:
+      "http://www.omdbapi.com/?apikey=dca61bcc&s=" + $(".input-keyword").val(),
+    success: (results) => {
+      const movies = results.Search;
+      let cards = "";
+      movies.forEach((movie) => {
+        cards += showCards(movie);
       });
-    });
-  },
-  error: (errors) => {
-    const errorMessage = errors.responseText;
-    alert(errorMessage);
-    console.log(errorMessage);
-  },
+      $(".movie-container").html(cards);
+
+      // ketika tombol detail modal di-klik
+      $(".modal-detail-button").on("click", function () {
+        $.ajax({
+          url:
+            "http://www.omdbapi.com/?apikey=dca61bcc&i=" +
+            $(this).data("imdbid"),
+          success: (movie) => {
+            const movieDetail = showMovieDetail(movie);
+
+            $(".modal-body").html(movieDetail);
+          },
+          error: (errors) => {
+            const errorMessage = errors.responseText;
+            alert(errorMessage);
+            console.log(errorMessage);
+          },
+        });
+      });
+    },
+    error: (errors) => {
+      const errorMessage = errors.responseText;
+      alert(errorMessage);
+      console.log(errorMessage);
+    },
+  });
 });
 
 const showCards = (movie) => {
