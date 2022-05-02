@@ -1,10 +1,12 @@
 $.ajax({
   url: "http://www.omdbapi.com/?apikey=dca61bcc&s=avengers",
-  success: (res) => {
-    const movies = res.Search;
+  success: (results) => {
+    const movies = results.Search;
     console.log(movies);
   },
-  error: (err) => {
-    console.log(err.responseText);
+  error: (errors) => {
+    const errorMessage = errors.responseText;
+    alert(errorMessage);
+    console.log(errorMessage);
   },
 });
