@@ -44,7 +44,13 @@ searchButton.addEventListener("click", function () {
   const inputKeyword = document.querySelector(".input-keyword");
   fetch("http://www.omdbapi.com/?apikey=dca61bcc&s=" + inputKeyword.value)
     .then((res) => res.json())
-    .then((res) => console.log(res));
+    .then((res) => {
+      const movies = res.Search;
+      let cards = "";
+      movies.forEach((movie) => (cards += showCards(movie)));
+      const movieContainer = document.querySelector(".movie-container");
+      movieContainer.innerHTML = cards;
+    });
 });
 
 const showCards = (movie) => {
