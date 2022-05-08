@@ -50,6 +50,23 @@ searchButton.addEventListener("click", function () {
       movies.forEach((movie) => (cards += showCards(movie)));
       const movieContainer = document.querySelector(".movie-container");
       movieContainer.innerHTML = cards;
+
+      // Ketika tombol detail di-klik
+      const modalDetailButton = document.querySelectorAll(
+        ".modal-detail-button"
+      );
+      modalDetailButton.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          const imdbid = this.dataset.imdbid;
+          fetch("http://www.omdbapi.com/?apikey=dca61bcc&i=" + imdbid)
+            .then((res) => res.json())
+            .then((movie) => {
+              const movieDetail = showMovieDetail(movie);
+              const modalBody = document.querySelector(".modal-body");
+              modalBody.innerHTML = movieDetail;
+            });
+        });
+      });
     });
 });
 
